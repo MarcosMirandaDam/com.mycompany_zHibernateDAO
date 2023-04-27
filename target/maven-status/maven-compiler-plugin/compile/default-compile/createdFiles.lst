@@ -1,0 +1,15 @@
+com\mycompany\zhibernate\dao\RegataDAO.class
+com\mycompany\zhibernate\dao\PropietarioDAOImpl.class
+com\mycompany\zhibernate\modelo\Amarre.class
+com\mycompany\zhibernate\dao\AmarreDAO.class
+com\mycompany\zhibernate\ZHibernate.class
+com\mycompany\zhibernate\dao\PropietarioDAO.class
+com\mycompany\zhibernate\modelo\Regata.class
+com\mycompany\zhibernate\BarcoDAO.class
+com\mycompany\zhibernate\modelo\Amarre$Categoria.class
+com\mycompany\zhibernate\dao\AmarreDAOImpl.class
+com\mycompany\zhibernate\util\HibernateUtil.class
+com\mycompany\zhibernate\BarcoDAOImpl.class
+com\mycompany\zhibernate\dao\RegataDAOImpl.class
+com\mycompany\zhibernate\modelo\Barco.class
+com\mycompany\zhibernate\modelo\Propietario.class
