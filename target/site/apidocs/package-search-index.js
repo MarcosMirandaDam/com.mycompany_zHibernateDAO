@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.mycompany.zhibernate"},{"l":"com.mycompany.zhibernate.dao"},{"l":"com.mycompany.zhibernate.modelo"},{"l":"com.mycompany.zhibernate.util"}];updateSearchResults();

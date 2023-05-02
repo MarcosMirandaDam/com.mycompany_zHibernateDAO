@@ -1,5 +1,5 @@
 
-package com.mycompany.zhibernate;
+package com.mycompany.zhibernate.dao;
 
 /**
  *

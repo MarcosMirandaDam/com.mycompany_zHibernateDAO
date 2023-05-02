@@ -1,13 +1,17 @@
 package com.mycompany.zhibernate;
 
+import com.mycompany.zhibernate.dao.BarcoDAO;
+import com.mycompany.zhibernate.dao.BarcoDAOImpl;
 import com.mycompany.zhibernate.dao.AmarreDAOImpl;
 import com.mycompany.zhibernate.dao.PropietarioDAO;
 import com.mycompany.zhibernate.dao.PropietarioDAOImpl;
+import com.mycompany.zhibernate.dao.PuertoDAOImpl;
 import com.mycompany.zhibernate.dao.RegataDAO;
 import com.mycompany.zhibernate.dao.RegataDAOImpl;
 import com.mycompany.zhibernate.modelo.Amarre;
 import com.mycompany.zhibernate.modelo.Barco;
 import com.mycompany.zhibernate.modelo.Propietario;
+import com.mycompany.zhibernate.modelo.Puerto;
 import com.mycompany.zhibernate.modelo.Regata;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,85 +31,84 @@ public class ZHibernate {
         // Configurar Hibernate
         Configuration configuration = new Configuration().configure();
         SessionFactory sessionFactory = configuration.buildSessionFactory();
-        
+
         //Creo instancia de Propietario
-        
-        Propietario propietario1=new Propietario(1,"13158801H","Marcos","Miranda","30Junio1976",null);      //creo un propietario con lista barcos vacia    
-        
+        Propietario propietario1 = new Propietario(1, "13158801H", "Marcos", "Miranda", "30Junio1976", null);      //creo un propietario con lista barcos vacia    
+        //Creo una instancia de Puerto
+        Puerto puerto1 = new Puerto(1, "Gijon", "5º41’O", "43º34’N", null);
+
         // Crear instancias de Barco , Amarre, Propietario
-        Barco barco2 = new Barco(2, "Perla Negra", 32,null, null,null);
-        
+        Barco barco2 = new Barco(2, "Perla Negra", 32, null, null, null);
+
         Amarre amarre1 = new Amarre(10);
         // Establecer atributos del amarre1
 
         //Creada instancia de PropietarioDAOImpl
-        PropietarioDAO propietarioDAO=new PropietarioDAOImpl(sessionFactory);
+        PropietarioDAO propietarioDAO = new PropietarioDAOImpl(sessionFactory);
+
         // Crear una instancia de BarcoDAOImpl
         BarcoDAO barcoDAO = new BarcoDAOImpl(sessionFactory);
+
+        //Crear una instancia de PuertoDAO
+        PuertoDAOImpl puertoDAO = new PuertoDAOImpl(sessionFactory);
+        puertoDAO.crear(puerto1);
 
         // Utilizar BarcoDAOImpl para realizar operaciones CRUD y amarrar barcos
         barcoDAO.crear(barco2);
         barcoDAO.amarrar(barco2, amarre1);
         propietarioDAO.crear(propietario1);         //creo el propietario
-        
+
         /*   EN ESTE COMENTARIO HA CREADO 1 ARRAY DE NOMBRES DE BARCOS Y OTRO DE ESLORA
         String[] nombresBarcos = {
-            "Juan Sebastián Elcano", "Santa María", "Pinta", "Niña", "Victoria", "Trinidad", "San Juan Nepomuceno", "Álvaro de Bazán"};
+        "Juan Sebastián Elcano", "Santa María", "Pinta", "Niña", "Victoria", "Trinidad", "San Juan Nepomuceno", "Álvaro de Bazán"};
         int[] esloraBarcos = {
-            42, 60, 52, 70, 45, 32, 38, 36
+        42, 60, 52, 70, 45, 32, 38, 36
         };
-        
         // Crear barcos y amarres, amarrar los barcos
         for (int i = 0; i < nombresBarcos.length; i++) {
-
-            Barco barco = new Barco(i, "Martina", i, amarre1, propietario1, null);
-
-            barco.setEslora(esloraBarcos[i]);
-            Amarre amarre = new Amarre(i + 1);
-
-            barco.setAmarre(amarre);
-            amarre.setBarco(barco);
-
-            barcoDAO.crear(barco);
+        Barco barco = new Barco(i, "Martina", i, amarre1, propietario1, null);
+        barco.setEslora(esloraBarcos[i]);
+        Amarre amarre = new Amarre(i + 1);
+        barco.setAmarre(amarre);
+        amarre.setBarco(barco);
+        barcoDAO.crear(barco);
         }
-        
         List<Barco> listaBarcos = barcoDAO.findByNombreContainingIgnoreCase("i");
-
         for (Barco barco : listaBarcos) {
-            System.out.println(barco.getNombre());
+        System.out.println(barco.getNombre());
         }
-        */
-        //creando una regata
-        Regata cuttysark = new Regata(1, "cutty sark", new Date(), "A Coruña", null);
+         */
+        //creando una regata, con su set de barcos y set de regatas
+        Regata RiasBaixas = new Regata(1, "San Xenxo", new Date(), "Galicia", null, null);
         RegataDAOImpl regataDAO = new RegataDAOImpl(sessionFactory);
-        regataDAO.crear(cuttysark);
-        
+        regataDAO.crear(RiasBaixas);
+        regataDAO.actualizar(RiasBaixas);
         //creo una regata
-        Regata CaboPenias = new Regata(2,"cabo de peñas",new Date(),"Asturias",null);
+        Regata CaboPenias = new Regata(2, "cabo de peñas", new Date(), "Asturias", null, null);
         regataDAO.crear(CaboPenias);
 
         AmarreDAOImpl amarreDAO = new AmarreDAOImpl(sessionFactory);
 
         // Crear instancias de Barco, Amarre y Regata
-        Barco mcQueen = new Barco(2, "McQueen3", 33, null,null, null);
+        Barco mcQueen = new Barco(2, "McQueen3", 33, null, null, null);
         Amarre amarremcQueen = new Amarre(1001);
 
         // Establecer relaciones entre las instancias
         HashSet<Regata> regatas = new HashSet<>();
-        regatas.add(cuttysark);
+        regatas.add(RiasBaixas);
         mcQueen.setRegatas(regatas);
         HashSet<Barco> setBarcosRegata = new HashSet<>();
         //    setBarcosRegata.add(mcQueen);
         //    cuttysark.setBarcos(setBarcosRegata);
         barcoDAO.amarrar(mcQueen, amarremcQueen);
 
-// Guardar las instancias de Amarre y Regata en la base de datos
-// Asegúrate de implementar los métodos para guardar las instancias de Amarre y Regata en la base de datos
+        // Guardar las instancias de Amarre y Regata en la base de datos
+        // Asegúrate de implementar los métodos para guardar las instancias de Amarre y Regata en la base de datos
         //      amarreDAO.crear(amarremcQueen);
         //     regataDAO.crear(cuttysark);
-// Guardar la instancia de Barco en la base de datos
+        // Guardar la instancia de Barco en la base de datos
         barcoDAO.crear(mcQueen);
-
+        
         sessionFactory.close();
     }
 }

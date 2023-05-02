@@ -45,9 +45,9 @@ public class PropietarioDAOImpl implements PropietarioDAO{
     @Override
     public List<Propietario> obtenerTodos() {
         Session session = sessionFactory.openSession();
-        List<Propietario> amarres = session.createQuery("from Propietario", Propietario.class).list();
+        List<Propietario> listaPropietarios = session.createQuery("from Propietario", Propietario.class).list();
         session.close();
-        return amarres;
+        return listaPropietarios;
         
     }
 

@@ -17,6 +17,7 @@
         <mapping class="com.mycompany.zhibernate.modelo.Amarre" />
         <mapping class="com.mycompany.zhibernate.modelo.Regata" />
          <mapping class="com.mycompany.zhibernate.modelo.Propietario" />
+         <mapping class="com.mycompany.zhibernate.modelo.Puerto" />
         
     </session-factory>
 </hibernate-configuration>
